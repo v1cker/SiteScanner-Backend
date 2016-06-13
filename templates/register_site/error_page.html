@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<title>{% block title %}Error{% endblock %}</title>
+
+<style>
+{% block block_style %}
+  body {
+    margin: 0;
+    background-color: darkslategray;
+  }
+  h1 { color: white; }
+{% endblock %}
+</style>
+
+{% block page_content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }} | <a href="/" class="alert-link">Go back to home page</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

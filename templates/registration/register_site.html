@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+<title>{% block title %}Register new site{% endblock %}</title>
+
+<style>
+{% block block_style %}
+  body {
+    margin: 0;
+    background-color: darkslategray;
+
+  }
+  h1,label { color: white; }
+{% endblock %}
+</style>
+
+{% block page_content %}
+
+<div class="row">
+    <div class="col-md-12">
+      <h1>{{ message }}!</h1> &nbsp;
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <form method="POST">{% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Dodaj">
+    </form>
+  </div>
+</div>
+
+{% endblock %}

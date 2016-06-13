@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<title>{% block title %}{{ user }} - profile page{% endblock %}</title>
+
+<style>
+{% block block_style %}
+  body {
+    margin: 0;
+    background-color: darkslategray;
+  }
+  h1 { color: white; }
+{% endblock %}
+</style>
+
+{% block page_content %}
+
+    <div class="row">
+        <div class="col-md-10"></div>
+            <h1>Just another random user, his name is {{ user }}</h1>
+        </div>
+    <div class="row">
+        <div class="col-md-2">
+          <img alt="{{ user }} avatar" src={% static "img/logo.png" %} />
+        </div>
+        <div class="col-md-8">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rhoncus placerat massa, sit amet porttitor sem placerat vel. Phasellus ornare dolor facilisis odio consequat, eu fringilla justo vehicula. Vestibulum at egestas arcu, nec suscipit turpis. Phasellus vehicula ornare nunc, eu porta nullam.</p>
+        </div>
+    </div>
+
+{% endblock %}

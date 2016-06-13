@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+<title>{% block title %}{{ scan.watcher.entry.alias }}{% endblock %}</title>
+
+<style>
+{% block block_style %}
+  body {
+    margin: 0;
+    background-color: darkslategray;
+  }
+  h1 { color: white; }
+{% endblock %}
+</style>
+
+{% block page_content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ scan.watcher.entry.alias }}</h1>
+            <p><a target="_blank" href="{{ scan.watcher.entry.url }}" rel="nofollow"><u>{{ scan.watcher.entry.url }}</u></a></p>
+            <hr>
+        </div>
+    </div>
+
+    {% if scan.status_code != 200 %}
+        <div class="alert alert-danger" role="alert">
+            <p>Response code - {{ scan.status_code }}</p>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <p>Last full scan: {{ scan.timestamp }} ({{ time_elapsed }} ago)</p>
+        </div>
+        <div class="col-md-6">
+            <p>Added on {{ scan.watcher.timestamp }} by {{ scan.watcher.entry.owner_username }}</p>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 40px">
+                <div class="alert alert-{{ message.tags }}">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6">
+            {% if scan.title == scan.watcher.title %}
+                <div class="panel panel-success">
+            {% else %}
+                <div class="panel panel-danger">
+            {% endif %}
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Title</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ scan.title }}
+                    </div>
+                    <div class="panel-body">
+                        <form action="/modify_site/{{ scan.watcher.entry.id }}/" method="post">{% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Title" aria-describedby="basic-addon1" name="value" value="{{ scan.watcher.title }}">
+                                <input type="hidden" name="attribute" value="title">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" href="/update/{{ scan.watcher.entry.id }}?next_url=page_details/{{ scan.watcher.entry.id }}"><i class="fa fa-refresh"></i></a>
+                                    <input class="btn btn-default" value="Modify" type="submit">
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-6">
+            {% if scan.h1 == scan.watcher.h1 %}
+                <div class="panel panel-success">
+            {% else %}
+                <div class="panel panel-danger">
+            {% endif %}
+                    <div class="panel-heading">
+                        <h3 class="panel-title">H1</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ scan.h1 }}
+                    </div>
+                    <div class="panel-body">
+                        <form action="/modify_site/{{ scan.watcher.entry.id }}/" method="post">{% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="H1" aria-describedby="basic-addon1" name="value" value="{{ scan.watcher.h1 }}">
+                                <input type="hidden" name="attribute" value="h1">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" href="/update/{{ scan.watcher.entry.id }}?next_url=page_details/{{ scan.watcher.entry.id }}"><i class="fa fa-refresh"></i></a>
+                                    <input class="btn btn-default" value="Modify" type="submit">
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            {% if scan.description == scan.watcher.description %}
+                <div class="panel panel-success">
+            {% else %}
+                <div class="panel panel-danger">
+            {% endif %}
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Description</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ scan.description }}
+                    </div>
+                    <div class="panel-body">
+                        <form action="/modify_site/{{ scan.watcher.entry.id }}/" method="post">{% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Description" aria-describedby="basic-addon1" name="value" value="{{ scan.watcher.description }}">
+                                <input type="hidden" name="attribute" value="description">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" href="/update/{{ scan.watcher.entry.id }}?next_url=page_details/{{ scan.watcher.entry.id }}"><i class="fa fa-refresh"></i></a>
+                                    <input class="btn btn-default" value="Modify" type="submit">
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+{% endblock %}

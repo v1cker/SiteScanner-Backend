@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+<title>{% block title %}DB updated{% endblock %}</title>
+
+<style>
+{% block block_style %}
+  body {
+    margin: 0;
+    background-color: darkslategray;
+  }
+  h1 { color: white; }
+{% endblock %}
+</style>
+
+{% block page_content %}
+
+<div class="row">
+    <div class="col-md-12">
+      <h1>Done!!</h1>
+    </div>
+</div>
+
+{% endblock %}

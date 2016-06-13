@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_content %}
+<div class="row">
+  <div class="col-lg-12">
+    <h1>Overview</h1>
+      <div class="table-responsive">
+
+        {% if watchers %}
+            <hr>
+            <h2>Watchers</h2>
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+              <tr>
+                  <th>Refresh</th>
+                  <th>Details</th>
+                  <th>Download</th>
+                  <th>Delete</th>
+                  <th>Alias</th>
+                  <th>Domain</th>
+                  <th>Code</th>
+                  <th>Header 1</th>
+                  <th>Title</th>
+                  <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+                {% for watcher_scan in watchers %}
+                  <tr>
+                    <td>
+                        <a href="update/{{ watcher_scan.watcher.entry.id }}"><i class="fa fa-refresh"></i></a>
+                    </td>
+                    <td>
+                        <a href="/page_details/{{ watcher_scan.watcher.entry.id }}"><i class="fa fa-eye"></i></a>
+                    </td>
+                    <td>
+                        <a href="/download_site/{{ watcher_scan.watcher.entry.id }}"><i class="fa fa-download"></i></a>
+                    </td>
+                    <td>
+                        <a href="delete_entry/{{ watcher_scan.watcher.entry.id }}"><i class="fa fa-trash"></i></a>
+                    </td>
+                    <td class="success">{{ watcher_scan.watcher.entry.alias }}</td>
+                    <td class="success">{{ watcher_scan.watcher.entry.url }}</td>
+		    {% if watcher.scan.status_code == 200 %}
+                      <td class="success">{{ watcher_scan.status_code }}</td>
+                    {% elif watcher_scan.status_code == 301 %}
+                      <td class="warning">{{ watcher_scan.status_code }}</td>
+                    {% else %}
+                      <td class="danger">{{ watcher_scan.status_code }}</td>
+                    {% endif %}
+
+                    {% if watcher_scan.h1 == watcher_scan.watcher.h1 %}
+                      <td class="success"><i class="fa fa-check-square-o"></i></td>
+                    {% else %}
+                      <td class="danger"><i class="fa fa-exclamation-triangle"></i></td>
+                    {% endif %}
+
+                    {% if watcher_scan.title == watcher_scan.watcher.title %}
+                      <td class="success"><i class="fa fa-check-square-o"></i></td>
+                    {% else %}
+                      <td class="danger"><i class="fa fa-exclamation-triangle"></i></td>
+                    {% endif %}
+
+                    {% if watcher_scan.description == watcher_scan.watcher.description %}
+                      <td class="success"><i class="fa fa-check-square-o"></i></td>
+                    {% else %}
+                      <td class="danger"><i class="fa fa-exclamation-triangle"></i></td>
+                    {% endif %}
+
+                  </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+        {% endif %}
+
+        {% if redirections %}
+            <hr>
+            <h2>Redirections</h2>
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+              <tr>
+                  <th>Refresh</th>
+                  <th>Details</th>
+                  <th>Delete</th>
+                  <th>Alias</th>
+                  <th>Response code</th>
+                  <th>Base domain</th>
+                  <th>Target domain</th>
+              </tr>
+              </thead>
+              <tbody>
+                {% for redirection_scan in redirections %}
+                  <tr>
+
+                    <td>
+                        <a href="update/{{ redirection_scan.redirection.entry.id }}"><i class="fa fa-refresh"></i></a>
+                    </td>
+
+                    <td>
+                        <a href="#"><i class="fa fa-eye"></i></a>
+                    </td>
+
+                    <td>
+                        <a href="delete_entry/{{ redirection_scan.redirection.entry.id }}"><i class="fa fa-trash"></i></a>
+                    </td>
+
+                    <td class="success">{{ redirection_scan.redirection.entry.alias }}</td>
+
+                    {% if redirection_scan.status_code == 301 %}
+                        <td class="success">{{ redirection_scan.status_code }}</td>
+                    {% else %}
+                        <td class="danger">{{ redirection_scan.status_code }}</td>
+                    {% endif %}
+
+                    <td class="success">{{ redirection_scan.base_url }}</td>
+
+                    {% if redirection_scan.target_url == redirection_scan.redirection.target_url %}
+                        <td class="success">{{ redirection_scan.target_url }}</td>
+                    {% else %}
+                        <td class="danger">{{ redirection_scan.target_url }}</td>
+                    {% endif %}
+
+                  </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+        {% endif %}
+
+        <form action="/update">
+          <input type="submit" class="btn btn-primary" value="Refresh all entries">
+        </form>
+      </div>
+  </div>
+</div>
+<!-- /.row -->
+{% endblock %}

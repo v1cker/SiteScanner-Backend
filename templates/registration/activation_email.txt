@@ -1,0 +1,16 @@
+{% load i18n %}
+{% trans "Activate account at" %} {{ site.name }}:
+
+Hi,
+
+click the link below to activate your account on Site Scanner.
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+
+{% blocktrans %}
+The above link is valid for {{ expiration_days }} days.
+After {{ expiration_days }} days, above link won't work.
+{% endblocktrans %}
+
+-Site Scanner Team
