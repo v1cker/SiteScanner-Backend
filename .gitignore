@@ -1,4 +1,7 @@
-
+ember_api/
+mail_alert/
+sites_backup/
+user_profile/
 .idea/
 celerybeat-schedule
 celerybeat.pid
