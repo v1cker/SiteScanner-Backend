@@ -42,7 +42,7 @@
                     </td>
                     <td class="success">{{ watcher_scan.watcher.entry.alias }}</td>
                     <td class="success">{{ watcher_scan.watcher.entry.url }}</td>
-		    {% if watcher.scan.status_code == 200 %}
+		    {% if watcher_scan.status_code == 200 %}
                       <td class="success">{{ watcher_scan.status_code }}</td>
                     {% elif watcher_scan.status_code == 301 %}
                       <td class="warning">{{ watcher_scan.status_code }}</td>
