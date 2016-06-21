@@ -78,6 +78,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'django_project.urls'
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
