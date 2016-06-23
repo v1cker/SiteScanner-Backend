@@ -30,9 +30,8 @@ from rest_framework import routers, serializers, viewsets
 
 # Rest Framework
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
 router.register(r'redirections', views.ScannerEngineViewSet)
+router.register(r'entriesindex-detail', views.EntriesIndexViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
