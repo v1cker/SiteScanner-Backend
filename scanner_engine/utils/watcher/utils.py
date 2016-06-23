@@ -28,6 +28,8 @@ def run_watcher_scan(watcher, proxy=None):
     scan_result.description = get_description(response)
     scan_result.h1 = get_h1(response)
     scan_result.save()
+    watcher.last_scan_id = scan_result.id
+    watcher.save()
     log = ScannerLogs(proxy=proxy, addon=scan_result.watcher)
     log.save()
     return scan_result

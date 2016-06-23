@@ -28,6 +28,7 @@ class WatchersIndex(models.Model):
     h1 = models.CharField(max_length=255, blank=False, null=False)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    last_scan_id = models.IntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return self.title
@@ -40,6 +41,7 @@ class RedirectionsIndex(models.Model):
     status_code = models.IntegerField(blank=False, null=False)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    last_scan_id = models.IntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return self.base_url

@@ -37,6 +37,8 @@ def run_redirection_scan(redirection, proxy=None):
     scan_result.target_url = response.url
     scan_result.status_code = get_redirection_code(response)
     scan_result.save()
+    redirection.last_scan_id = scan_result.id
+    redirection.save()
     log = ScannerLogs(proxy=proxy, addon=scan_result.redirection)
     log.save()
     return scan_result

@@ -9,12 +9,12 @@ class EntriesIndexAdmin(admin.ModelAdmin):
 
 
 class WatchersIndexAdmin(admin.ModelAdmin):
-    list_display = ['id', 'entry', 'title', 'description', 'h1', 'timestamp', 'updated']
+    list_display = ['id', 'entry', 'title', 'description', 'h1', 'timestamp', 'updated', 'last_scan_id']
     form = WatchersIndexForm
 
 
 class RedirectionsIndexAdmin(admin.ModelAdmin):
-    list_display = ['id', 'entry', 'base_url', 'target_url', 'status_code', 'timestamp', 'updated']
+    list_display = ['id', 'entry', 'base_url', 'target_url', 'status_code', 'timestamp', 'updated', 'last_scan_id']
     form = RedirectionsIndexForm
 
 admin.site.register(EntriesIndex, EntriesIndexAdmin)
