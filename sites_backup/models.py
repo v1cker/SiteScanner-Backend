@@ -4,6 +4,9 @@ from django.db import models
 from register_site.models import EntriesIndex
 
 
+"""
+Logs of every performed site backup
+"""
 class SitesBackupIndex(models.Model):
     entry = models.ForeignKey(EntriesIndex)
     path = models.CharField(max_length=255, null=False)

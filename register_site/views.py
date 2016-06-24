@@ -1,6 +1,5 @@
 import requests
 from django.shortcuts import render, redirect
-
 from scanner_engine.models import WatchersIndex
 from scanner_engine.utils.utils import get_title, get_description, get_h1
 from scanner_engine.utils.redirection.utils import run_redirection_scan
@@ -10,6 +9,54 @@ from .models import EntriesIndex
 from .utils import parse_domain_name
 
 
+"""
+Form used to register new Entry and Watcher in teh DB.
+It requires title, description and h1 for Watcher.
+"""
+def register_form(request):
+    if not request.user.is_authenticated():
+        return redirect("/accounts/login/")
+
+    form_watcher = WatchersIndexForm(request.POST or None)
+    form_site = EntriesIndexForm(request.POST or None)
+
+    context = {
+        'form_site': form_site,
+        'form_addon': form_watcher,
+        'message': 'Register new watcher'
+    }
+
+    if form_site.is_valid():
+        new_entry = form_site.save(commit=False)
+        new_entry.owner_username = request.user.username
+        if not new_entry.alias:
+            new_entry.alias = parse_domain_name(new_entry.url)
+        new_entry.save()
+
+    if form_watcher.is_valid():
+        new_watcher = form_watcher.save(commit=False)
+        new_watcher.entry = new_entry
+        new_watcher.save()
+        new_entry.watcher_exists = 1
+        new_entry.save()
+
+        """
+        Scan newly added entry, to have a least one scan in the DB.
+        It is necessary to display templates correctly.
+        """
+        run_watcher_scan(new_watcher)
+        context = {
+            'form_site': EntriesIndexForm,
+            'form_addon': WatchersIndexForm,
+            'message': 'Watcher registered correctly!'
+        }
+    return render(request, 'register_site/register_site.html', context)
+
+
+"""
+Form used to register new Entry and Watcher in teh DB.
+Title, description and h1 for Watcher are taken directly from the given site.
+"""
 def site_from_snapshot_form(request):
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
@@ -60,46 +107,9 @@ def site_from_snapshot_form(request):
     return render(request, "register_site/register_site.html", context)
 
 
-def register_form(request):
-    if not request.user.is_authenticated():
-        return redirect("/accounts/login/")
-
-    form_watcher = WatchersIndexForm(request.POST or None)
-    form_site = EntriesIndexForm(request.POST or None)
-
-    context = {
-        'form_site': form_site,
-        'form_addon': form_watcher,
-        'message': 'Register new watcher'
-    }
-
-    if form_site.is_valid():
-        new_entry = form_site.save(commit=False)
-        new_entry.owner_username = request.user.username
-        if not new_entry.alias:
-            new_entry.alias = parse_domain_name(new_entry.url)
-        new_entry.save()
-
-    if form_watcher.is_valid():
-        new_watcher = form_watcher.save(commit=False)
-        new_watcher.entry = new_entry
-        new_watcher.save()
-        new_entry.watcher_exists = 1
-        new_entry.save()
-
-        """
-        Scan newly added entry, to have a least one scan in the DB.
-        It is necessary to display templates correctly.
-        """
-        run_watcher_scan(new_watcher)
-        context = {
-            'form_site': EntriesIndexForm,
-            'form_addon': WatchersIndexForm,
-            'message': 'Watcher registered correctly!'
-        }
-    return render(request, 'register_site/register_site.html', context)
-
-
+"""
+Form used to register new Entry and Redirection in teh DB.
+"""
 def register_301_form(request):
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
@@ -142,6 +152,9 @@ def register_301_form(request):
     return render(request, 'register_site/register_site.html', context)
 
 
+"""
+Delete Entry with given id and all associated add-ons.
+"""
 def delete_entry(request, entry_id=None):
     if not request.user.is_authenticated():
         return redirect('/accounts/login/')
@@ -151,4 +164,3 @@ def delete_entry(request, entry_id=None):
         entry.delete()
 
     return redirect('/')
-

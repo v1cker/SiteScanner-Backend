@@ -5,6 +5,10 @@ from register_site.models import EntriesIndex, WatchersIndex, RedirectionsIndex
 from scanner_engine.models import WatcherScanResult, RedirectionScanResult
 
 
+"""
+Modify watcher of the entry with given id.
+Request needs to have attribute-value pair inside POST.
+"""
 def modify_site(request, entry_id=None):
     if not request.user.is_authenticated():
         return redirect('/accounts/login/')
@@ -44,6 +48,9 @@ def modify_site(request, entry_id=None):
                       {'error_message': 'Site with given ID was not found in the database!'})
 
 
+"""
+Display site and its watcher to the user.
+"""
 def page_details(request, entry_id=None):
     if not request.user.is_authenticated():
         return redirect('/accounts/login/')

@@ -6,6 +6,10 @@ import os
 import datetime
 
 
+"""
+Request conent of site with the given id
+and save it to teh disk.
+"""
 def download_site(request, entry_id=None):
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")

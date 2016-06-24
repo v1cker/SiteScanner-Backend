@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
-
 from register_site.models import EntriesIndex, WatchersIndex, RedirectionsIndex
 from scanner_engine.utils.redirection.utils import run_redirection_scan
 from scanner_engine.utils.watcher.utils import run_watcher_scan
 from .models import WatcherScanResult, RedirectionScanResult
 
-# Create your views here.
 
-
+"""
+Home view of the application.
+"""
 def home(request):
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
@@ -45,6 +45,11 @@ def home(request):
     return render(request, "home_view.html", context)
 
 
+"""
+Update Entry with given id.
+All associated add-ons will be scanned.
+Scan results will be saved to the DB.
+"""
 def update_scans(request, entry_id=None):
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
