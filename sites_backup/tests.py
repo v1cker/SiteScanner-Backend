@@ -1,8 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
-# Create your tests here.
-
 
 def create_and_login_test_user(user_name='test', password='abc123de'):
     client = Client()

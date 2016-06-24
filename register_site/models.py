@@ -2,13 +2,13 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-"""
-The most basic model of the entire application.
-Entry represents one specific domain to be observed.
-Entry can be associated with many diferent add-ons
-Details on add-ons below.
-"""
 class EntriesIndex(models.Model):
+    """
+    The most basic model of the entire application.
+    Entry represents one specific domain to be observed.
+    Entry can be associated with many different add-ons
+    Details on add-ons below.
+    """
     alias = models.CharField(max_length=255, blank=True, null=False)
     owner_username = models.CharField(max_length=255, blank=False, null=False)
     url = models.CharField(max_length=255, blank=False, null=False)
@@ -27,12 +27,12 @@ class EntriesIndex(models.Model):
         return bool(self.redirections_exists)
 
 
-"""
-Add-on.
-Every Entry can have only one Watcher.
-Watcher keeps track of meta title, meta description and first H1 of the site.
-"""
 class WatchersIndex(models.Model):
+    """
+    Add-on.
+    Every Entry can have only one Watcher.
+    Watcher keeps track of meta title, meta description and first H1 of the site.
+    """
     entry = models.ForeignKey(EntriesIndex, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField(blank=False, null=False)
@@ -45,14 +45,14 @@ class WatchersIndex(models.Model):
         return self.title
 
 
-"""
-Add-on.
-Every entry can have multiple Redirections.
-Redirection add-on checks if base url redirects to target url.
-Target url should be the same as url of the associated Entry,
-although it don't has to be. 
-"""
 class RedirectionsIndex(models.Model):
+    """
+    Add-on.
+    Every entry can have multiple Redirections.
+    Redirection add-on checks if base url redirects to target url.
+    Target url should be the same as url of the associated Entry,
+    although it don't has to be.
+    """
     entry = models.ForeignKey(EntriesIndex, on_delete=models.CASCADE)
     base_url = models.CharField(max_length=255, blank=False, null=False)
     target_url = models.CharField(max_length=255, blank=False, null=False)

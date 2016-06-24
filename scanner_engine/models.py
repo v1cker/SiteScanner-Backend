@@ -3,10 +3,10 @@ from django.db import models
 from register_site.models import WatchersIndex, RedirectionsIndex, EntriesIndex
 
 
-"""
-Log produced with every scan.
-"""
 class ScannerLogs(models.Model):
+    """
+    Log produced with every scan.
+    """
     ADDON_TYPES = (
         (WatchersIndex, 'Watcher'),
         (RedirectionsIndex, 'Redirection')
@@ -16,10 +16,10 @@ class ScannerLogs(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
 
-"""
-Model for result of single scan of the Watcher.
-"""
 class WatcherScanResult(models.Model):
+    """
+    Model for result of single scan of the Watcher.
+    """
     watcher = models.ForeignKey(WatchersIndex)
     status_code = models.SmallIntegerField(blank=False, null=True)
     title = models.CharField(max_length=120, blank=False, null=True)
@@ -31,10 +31,10 @@ class WatcherScanResult(models.Model):
         return str(self.title)
 
 
-"""
-Model for result of single scan of Redirection.
-"""
 class RedirectionScanResult(models.Model):
+    """
+    Model for result of single scan of Redirection.
+    """
     redirection = models.ForeignKey(RedirectionsIndex)
     base_url = models.URLField(max_length=60, blank=False, null=False)
     target_url = models.URLField(max_length=60, blank=False, null=False)

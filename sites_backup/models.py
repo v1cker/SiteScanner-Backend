@@ -1,13 +1,12 @@
 from __future__ import unicode_literals
-
 from django.db import models
 from register_site.models import EntriesIndex
 
 
-"""
-Logs of every performed site backup
-"""
 class SitesBackupIndex(models.Model):
+    """
+    Logs of every performed site backup
+    """
     entry = models.ForeignKey(EntriesIndex)
     path = models.CharField(max_length=255, null=False)
     author = models.CharField(max_length=120, default='Anonymous')

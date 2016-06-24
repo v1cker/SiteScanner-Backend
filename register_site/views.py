@@ -9,11 +9,11 @@ from .models import EntriesIndex
 from .utils import parse_domain_name
 
 
-"""
-Form used to register new Entry and Watcher in teh DB.
-It requires title, description and h1 for Watcher.
-"""
 def register_form(request):
+    """
+    Form used to register new Entry and Watcher in teh DB.
+    It requires title, description and h1 for Watcher.
+    """
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
 
@@ -53,11 +53,11 @@ def register_form(request):
     return render(request, 'register_site/register_site.html', context)
 
 
-"""
-Form used to register new Entry and Watcher in teh DB.
-Title, description and h1 for Watcher are taken directly from the given site.
-"""
 def site_from_snapshot_form(request):
+    """
+    Form used to register new Entry and Watcher in teh DB.
+    Title, description and h1 for Watcher are taken directly from the given site.
+    """
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
 
@@ -107,10 +107,10 @@ def site_from_snapshot_form(request):
     return render(request, "register_site/register_site.html", context)
 
 
-"""
-Form used to register new Entry and Redirection in teh DB.
-"""
 def register_301_form(request):
+    """
+    Form used to register new Entry and Redirection in teh DB.
+    """
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
 
@@ -152,10 +152,10 @@ def register_301_form(request):
     return render(request, 'register_site/register_site.html', context)
 
 
-"""
-Delete Entry with given id and all associated add-ons.
-"""
 def delete_entry(request, entry_id=None):
+    """
+    Delete Entry with given id and all associated add-ons.
+    """
     if not request.user.is_authenticated():
         return redirect('/accounts/login/')
 

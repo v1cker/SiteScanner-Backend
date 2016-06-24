@@ -5,10 +5,10 @@ from scanner_engine.utils.watcher.utils import run_watcher_scan
 from .models import WatcherScanResult, RedirectionScanResult
 
 
-"""
-Home view of the application.
-"""
 def home(request):
+    """
+    Home view of the application.
+    """
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
 
@@ -45,12 +45,12 @@ def home(request):
     return render(request, "home_view.html", context)
 
 
-"""
-Update Entry with given id.
-All associated add-ons will be scanned.
-Scan results will be saved to the DB.
-"""
 def update_scans(request, entry_id=None):
+    """
+    Update Entry with given id.
+    All associated add-ons will be scanned.
+    Scan results will be saved to the DB.
+    """
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
 

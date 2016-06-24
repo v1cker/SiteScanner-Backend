@@ -12,14 +12,14 @@ from scanner_engine.utils.watcher.utils import run_watcher_scan, has_problems_wa
 logger = get_task_logger(__name__)
 
 
-"""
-Task for periodic scan of all Entries.
-It is used along side Celery for scheduled scans.
-It can also send email with report about the finished scan.
-Email configuration inside setting.py
-"""
 @task()
 def automatic_scan_task(should_mail_the_user=True):
+    """
+    Task for periodic scan of all Entries.
+    It is used along side Celery for scheduled scans.
+    It can also send email with report about the finished scan.
+    Email configuration inside setting.py
+    """
     logger.info("Run automatic scan...")
 
     number_of_entries_scanned = 0
