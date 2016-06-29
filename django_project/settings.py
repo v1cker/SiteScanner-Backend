@@ -60,7 +60,6 @@ INSTALLED_APPS = (
     'manage_sites',
     'register_site',
     'scanner_engine',
-    'sites_backup',
     'user_profile'
 )
 
