@@ -2,17 +2,12 @@ from django.shortcuts import render, redirect
 from register_site.models import EntriesIndex, WatchersIndex, RedirectionsIndex, ArchivesIndex
 from scanner_engine.utils.redirection.utils import run_redirection_scan
 from scanner_engine.utils.watcher.utils import run_watcher_scan
-from scanner_engine.utils.archive.utils import run_archive_copy
 from .models import WatcherScanResult, RedirectionScanResult
 
 
 def home(request):
     if not request.user.is_authenticated():
         return redirect("/accounts/login/")
-
-    # TEMPORARY
-    archive_to_go = ArchivesIndex.objects.get(id=2)
-    run_archive_copy(archive_to_go)
 
     entries = EntriesIndex.objects.all()
     list_of_watcher_scans = []
