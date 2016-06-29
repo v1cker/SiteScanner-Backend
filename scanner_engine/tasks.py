@@ -58,3 +58,9 @@ def automatic_scan_task(should_mail_the_user=True):
         message = EmailMessage(mail_subject, mail_message, from_email, to_emails)
         message.content_subtype = "html"
         message.send(fail_silently=True)
+
+
+
+@task()
+def dowload_site_to_local():
+    pass

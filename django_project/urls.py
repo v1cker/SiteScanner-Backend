@@ -19,13 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 import scanner_engine.views
 import register_site.views
-import sites_backup.views
 import user_profile.views
 import manage_sites.views
 from ember_api import views
 import registration.backends.default.urls
-from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers
 
 
 # Rest Framework
@@ -46,10 +44,6 @@ urlpatterns = [
     # scanner_engine
     url(r'^update/$', scanner_engine.views.update_scans, name='update_scans'),
     url(r'^update/([0-9]+)/$', scanner_engine.views.update_scans, name='update_scans'),
-
-    # sites_backup
-    url(r'^download_site/$', sites_backup.views.download_site, name='download_site'),
-    url(r'^download_site/([0-9]+)/$', sites_backup.views.download_site, name='download_site'),
 
     # manage_sites
     url(r'^page_details/([0-9]+)/$', manage_sites.views.page_details, name='page_details'),

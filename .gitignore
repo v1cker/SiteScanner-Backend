@@ -1,5 +1,6 @@
 mail_alert/
 sites_backup/backup_files/*
+scanner_engine/backup_files/*
 user_profile/
 .idea/
 celerybeat-schedule
