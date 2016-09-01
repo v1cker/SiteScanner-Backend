@@ -55,8 +55,10 @@ python manage.py runserver
 By default, app will be live at http://localhost:8000
 
 ## References
-* []()
-* []()
-* []()
-* []()
-* []()
+* [OAuth2 with Django REST Framework](https://yeti.co/blog/oauth2-with-django-rest-framework/)
+* [Django REST Frameowrk JSNO API format](https://github.com/django-json-api/django-rest-framework-json-api)
+* [Asyncs task in Django with Celery and Redis](http://michal.karzynski.pl/blog/2014/05/18/setting-up-an-asynchronous-task-queue-for-django-using-celery-redis/)
+* [Supervisor (manage process on the server)](http://supervisord.org/)
+* [DRF documentation](http://www.django-rest-framework.org/)
+* [Requests docs](http://docs.python-requests.org/en/latest/index.html)
+* [Setting up JSONAPI and models with relations](http://django-rest-framework-json-api.readthedocs.io/en/v2.0.1/usage.html#setting-the-resource-name)
