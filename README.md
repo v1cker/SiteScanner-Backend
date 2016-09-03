@@ -43,6 +43,11 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+If migrations didn't apply correctly, use:
+```sh
+python manage.py migrate --run-syncdb
+```
+
 Create admin user:
 ```sh
 python manage.py createsuperuser
