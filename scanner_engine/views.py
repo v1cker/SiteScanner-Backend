@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
-
 from register_site.models import EntriesIndex, WatchersIndex, RedirectionsIndex
 from scanner_engine.utils.redirection.utils import run_redirection_scan
 from scanner_engine.utils.watcher.utils import run_watcher_scan
 from .models import WatcherScanResult, RedirectionScanResult
-
-# Create your views here.
 
 
 def home(request):
@@ -56,16 +53,14 @@ def update_scans(request, entry_id=None):
 
     for entry in entries_to_check:
         if entry.has_watcher():
-            print ('watcher exists')
             if len(WatchersIndex.objects.filter(entry=entry)) == 1:
                 run_watcher_scan(WatchersIndex.objects.get(entry=entry))
             else:
                 print ('Invalid number of watchers for entry')
         if entry.has_redirections():
-            print ('redirection exists')
             if len(RedirectionsIndex.objects.filter(entry=entry)) != 0:
                 for redirection in RedirectionsIndex.objects.filter(entry=entry):
-                    run_redirection_scan(redirection)
+                    run_redirection_scan(redirection, number_of_proxies_to_use=1)
             else:
                 entry.redirections_exists = 0
                 entry.save()

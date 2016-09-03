@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from register_site.models import WatchersIndex, RedirectionsIndex
 
 
 def get_title(response):

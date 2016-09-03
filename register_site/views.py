@@ -1,6 +1,5 @@
 import requests
 from django.shortcuts import render, redirect
-
 from scanner_engine.models import WatchersIndex
 from scanner_engine.utils.utils import get_title, get_description, get_h1
 from scanner_engine.utils.redirection.utils import run_redirection_scan
@@ -110,7 +109,7 @@ def register_301_form(request):
     context = {
         'form_site': form_site,
         'form_addon': form_redirection,
-        'message': 'Register new redirection'
+        'message': 'Add new redirection to monitor.'
     }
 
     if form_site.is_valid():
@@ -133,11 +132,11 @@ def register_301_form(request):
         Scan newly added entry, to have a least one scan in the DB.
         It is necessary to display templates correctly.
         """
-        run_redirection_scan(new_redirection)
+        run_redirection_scan(new_redirection, number_of_proxies_to_use=1)
         context = {
             'form_site': EntriesIndexForm,
             'form_addon': RedirectionsIndexForm(initial={'status_code': 301}),
-            'message': 'Redirection registered correctly!'
+            'message': 'Redirection added. You can add another one.'
         }
     return render(request, 'register_site/register_site.html', context)
 
@@ -151,4 +150,3 @@ def delete_entry(request, entry_id=None):
         entry.delete()
 
     return redirect('/')
-

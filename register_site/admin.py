@@ -14,7 +14,7 @@ class WatchersIndexAdmin(admin.ModelAdmin):
 
 
 class RedirectionsIndexAdmin(admin.ModelAdmin):
-    list_display = ['id', 'entry', 'base_url', 'target_url', 'status_code', 'timestamp', 'updated', 'last_scan_id']
+    list_display = ['id', 'entry', 'base_url', 'target_url', 'status_code', 'timestamp', 'updated', 'scan']
     form = RedirectionsIndexForm
 
 admin.site.register(EntriesIndex, EntriesIndexAdmin)

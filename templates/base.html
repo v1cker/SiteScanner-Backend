@@ -55,18 +55,18 @@
           <!-- Top Menu Items -->
           <ul class="nav navbar-right top-nav">
               {% if user.is_authenticated %}
-                <li><a target="_blank" href="/admin/">Administrator <i class="fa fa-linux"></i></a></li>
-                <li><a href="/profile/">Profile <i class="fa fa-user"></i></a></li>
+                <!--<li><a target="_blank" href="/admin/">Administrator <i class="fa fa-linux"></i></a></li>-->
+                <!--<li><a href="/profile/">Profile <i class="fa fa-user"></i></a></li>-->
                 <li><a href="/accounts/logout/">Logout <i class="fa fa-power-off"></i></a></li>
               {% endif %}
           </ul>
           <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
               <ul class="nav navbar-nav side-nav">
-                  <li><a href="/"><u>Overview</u></a></li>
-                  <li><a href="/watcher_from_snapshot"><i class="fa fa-camera"></i> | Watcher from snapshot</a></li>
-                  <li><a href="/register_watcher"><i class="fa fa-database"></i> | Register watcher</a></li>
-                  <li><a href="/register_redirection"><i class="fa fa-reply-all"></i> | Register redirection</a></li>
+                  <li><a href="/"><u>Dashboard</u></a></li>
+                  <!--<li><a href="/watcher_from_snapshot"><i class="fa fa-camera"></i> | Watcher from snapshot</a></li>-->
+                  <!--<li><a href="/register_watcher"><i class="fa fa-database"></i> | Register watcher</a></li>-->
+                  <li><a href="/register_redirection"><i class="fa fa-reply-all"></i> | Monitor redirection</a></li>
               </ul>
           </div>
           <!-- /.navbar-collapse -->

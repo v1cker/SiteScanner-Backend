@@ -27,7 +27,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sscanner.pl']
 
 # Email
 EMAIL_HOST = 'smtp.gmail.com'
@@ -57,11 +57,8 @@ INSTALLED_APPS = (
     # My apps
     'ember_api',
     'mail_alert',
-    'manage_sites',
     'register_site',
-    'scanner_engine',
-    'sites_backup',
-    'user_profile'
+    'scanner_engine'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -117,12 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
@@ -170,14 +161,17 @@ CELERY_TIMEZONE = 'Europe/Warsaw'
 CELERYBEAT_SCHEDULE = {
     'scheduled-scan': {
         'task': 'scanner_engine.tasks.automatic_scan_task',
-        'schedule': crontab(minute=0, hour=3, day_of_week=(1, 2, 3, 4, 5)),
+        'schedule': crontab(minute=0, hour=3, day_of_week=(0, 1, 2, 3, 4, 5, 6)),
         'args': ()
     },
 }
 
 # REST FRAMEWORK
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+    ),
+    'PAGE_SIZE': 50,
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework_json_api.pagination.PageNumberPagination',
@@ -190,5 +184,5 @@ REST_FRAMEWORK = {
         'rest_framework_json_api.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
-    'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
+    'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata'
 }

@@ -34,3 +34,6 @@ class RedirectionScanResult(models.Model):
 
     def __unicode__(self):
         return str(self.base_url)
+
+    class JSONAPIMeta:
+        resource_name = "redirection-scan"

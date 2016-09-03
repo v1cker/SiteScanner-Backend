@@ -19,9 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 import scanner_engine.views
 import register_site.views
-import sites_backup.views
-import user_profile.views
-import manage_sites.views
+import ember_api.views
 from ember_api import views
 import registration.backends.default.urls
 from django.contrib.auth.models import User
@@ -31,7 +29,8 @@ from rest_framework import routers, serializers, viewsets
 # Rest Framework
 router = routers.DefaultRouter()
 router.register(r'redirections', views.ScannerEngineViewSet)
-router.register(r'entriesindex-detail', views.EntriesIndexViewSet)
+router.register(r'entries', views.EntriesIndexViewSet)
+router.register(r'redirection-scans', views.RedirectionScanViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -47,24 +46,15 @@ urlpatterns = [
     url(r'^update/$', scanner_engine.views.update_scans, name='update_scans'),
     url(r'^update/([0-9]+)/$', scanner_engine.views.update_scans, name='update_scans'),
 
-    # sites_backup
-    url(r'^download_site/$', sites_backup.views.download_site, name='download_site'),
-    url(r'^download_site/([0-9]+)/$', sites_backup.views.download_site, name='download_site'),
-
-    # manage_sites
-    url(r'^page_details/([0-9]+)/$', manage_sites.views.page_details, name='page_details'),
-    url(r'^page_details/$', manage_sites.views.page_details, name='page_details'),
-    url(r'^modify_site/([0-9]+)/$', manage_sites.views.modify_site, name='modify_site'),
-    url(r'^modify_site/$', manage_sites.views.modify_site, name='modify_site'),
-
-    # user_profile
-    url(r'^profile/$', user_profile.views.profile, name='profile'),
-
     # registration
     url(r'^accounts/', include(registration.backends.default.urls)),
 
-    # Rest framework GUI API and DOT
+    # Rest framework GUI API, DOT and functional API
     url(r'^api/', include(router.urls)),
     url(r'^api/o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/update/', ember_api.views.UpdateScan, name='api_update'),
+    url(r'^api/delete/', ember_api.views.delete_entry, name='api_delete'),
+    url(r'^api/register_entry/', ember_api.views.register_redirection, name='api_register_entry'),
+    url(r'^api/get_user_info/', ember_api.views.get_user_info, name='get_user_info')
 ]
